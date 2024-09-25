@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Draggable from 'react-draggable';
 import {SWATCHES} from '@/constants';
+// import {LazyBrush} from 'lazy-brush';
 
 interface GeneratedResult {
     expression: string;
@@ -25,6 +26,12 @@ export default function Home() {
     const [result, setResult] = useState<GeneratedResult>();
     const [latexPosition, setLatexPosition] = useState({ x: 10, y: 200 });
     const [latexExpression, setLatexExpression] = useState<Array<string>>([]);
+
+    // const lazyBrush = new LazyBrush({
+    //     radius: 10,
+    //     enabled: true,
+    //     initialPoint: { x: 0, y: 0 },
+    // });
 
     useEffect(() => {
         if (latexExpression.length > 0 && window.MathJax) {
@@ -84,6 +91,7 @@ export default function Home() {
         const latex = `\\(\\LARGE{${expression} = ${answer}}\\)`;
         setLatexExpression([...latexExpression, latex]);
 
+        // Clear the main canvas
         const canvas = canvasRef.current;
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -151,6 +159,7 @@ export default function Home() {
             console.log('Response', resp);
             resp.data.forEach((data: Response) => {
                 if (data.assign === true) {
+                    // dict_of_vars[resp.result] = resp.answer;
                     setDictOfVars({
                         ...dictOfVars,
                         [data.expr]: data.result
@@ -164,7 +173,7 @@ export default function Home() {
             for (let y = 0; y < canvas.height; y++) {
                 for (let x = 0; x < canvas.width; x++) {
                     const i = (y * canvas.width + x) * 4;
-                    if (imageData.data[i + 3] > 0) {
+                    if (imageData.data[i + 3] > 0) {  // If pixel is not transparent
                         minX = Math.min(minX, x);
                         minY = Math.min(minY, y);
                         maxX = Math.max(maxX, x);
