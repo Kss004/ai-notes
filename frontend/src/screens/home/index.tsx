@@ -286,7 +286,7 @@
                 </main>
             
                 <footer className="bg-black text-white shadow-md p-4 mt-auto">
-                    <p className="text-center text-sm">© 2024 AI Calc. All rights reserved <a href='https://github.com/ayam04'>@Ayam</a></p>
+                    <p className="text-center text-sm">© 2024 AI Calc. All rights reserved <a href='https://github.com/Kss004'>@Shashwat</a></p>
                 </footer>
             </div>
         );

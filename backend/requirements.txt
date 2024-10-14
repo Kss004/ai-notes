@@ -3,3 +3,4 @@ google-generativeai
 pydantic
 uvicorn
 pillow
+python-dotenv
